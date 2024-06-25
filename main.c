@@ -3,7 +3,7 @@
 
 // Define initial viewing parameters
 //GLfloat eyeX = 2.0, eyeY = 2.0, eyeZ = 2.0;
-GLfloat eyeX = 1.2, eyeY = 0.6, eyeZ = 0.2;
+GLfloat eyeX = 0.0, eyeY = 1.2, eyeZ = 2.0;
 
 
 // Define initial viewing parameters
@@ -12,6 +12,14 @@ GLfloat upX = 0.0, upY = 1.0, upZ = 0.0;
 GLfloat stepSize = 0.1;
 
 int frameNumber = 0;
+
+// cores
+float dark_green[3]  = {1.0/255.0  , 50.0/255.0 , 32.0/255.0 };
+float light_blue[3]  = {173.0/255.0, 216.0/255.0, 230.0/255.0};
+float light_red[3]   = {255.0/255.0, 71.0/255.0 , 76.0/255.0 };
+float light_black[3] = {39.0/255.0 , 39.0/255.0 , 39.0/255.0 };
+float brown[3]       = {205.0/255.0, 127.0/255.0, 50.0/255.0 };
+float white[3]       = {1.0        , 1.0        , 1.0        };
 
 
 void init() {
@@ -89,13 +97,30 @@ void drawCube() {
    glPopMatrix();
 }
 
+void chao() {
+  glPushMatrix();
+    glTranslatef(0, -0.1, 0);
+    glColor3fv(dark_green);
+    glBegin(GL_POLYGON);
+      glVertex3f(1, 0, 1);
+      glVertex3f(1, 0, -1);
+      glVertex3f(-1, 0, -1);
+      glVertex3f(-1, 0, 1);
+    glEnd();
+  glPopMatrix();
+}
+
 void display() {
     // Clear the color buffer
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Chão verde
+    chao();
+
     // Carro
     glColor3f(1.0, 1.0, 1.0);
     drawCube(); 
+
 
     // Roda 1
     /*
@@ -163,6 +188,9 @@ void keyboard(unsigned char key, int x, int y) {
         case 'e': // Move down
             eyeY -= stepSize;
             break;
+	case 'j':
+	    
+	    break;
         case 27:  // Escape key
             exit(0);
             break;
