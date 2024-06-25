@@ -100,7 +100,7 @@ void drawCube() {
    drawFace5();
    drawFace6();
    glPopMatrix();
-}
+} 
 
 void chao() {
   glPushMatrix();
@@ -220,7 +220,9 @@ void keyboard(unsigned char key, int x, int y) {
 
 void doFrame() {
 	frameNumber++;
+	if (isSuperUser) {
 
+	}
 	glutPostRedisplay();
 	glutTimerFunc(20, doFrame, 0);
 }
