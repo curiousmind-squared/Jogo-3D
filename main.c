@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // Define initial viewing parameters
 //GLfloat eyeX = 2.0, eyeY = 2.0, eyeZ = 2.0;
@@ -12,6 +13,10 @@ GLfloat upX = 0.0, upY = 1.0, upZ = 0.0;
 GLfloat stepSize = 0.1;
 
 int frameNumber = 0;
+
+bool isSuperUser   = true;
+bool cenarioFrente = false;
+bool cenarioTras   = false;
 
 // cores
 float dark_green[3]  = {1.0/255.0  , 50.0/255.0 , 32.0/255.0 };
@@ -188,8 +193,17 @@ void keyboard(unsigned char key, int x, int y) {
         case 'e': // Move down
             eyeY -= stepSize;
             break;
-	case 'j':
-	    
+	case 'j': // Cenário frente
+	    cenarioFrente=true; 
+	    break;
+	case 'k': // Cenário trás
+	    cenarioTras=true;
+	    break;
+	case 'l': // Para tudo para mover o cenário com 'j' e 'k'
+	    isSuperUser = true;
+	    break;
+	case 'h': // Volta a mover o cenário normalmente
+	    isSuperUser = false;	    	    
 	    break;
         case 27:  // Escape key
             exit(0);
@@ -200,12 +214,13 @@ void keyboard(unsigned char key, int x, int y) {
     // Update the view
     glLoadIdentity();
     gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    printf("eyeX: %f ; eyeY: %f ; eyeZ: %f\n", eyeX, eyeY, eyeZ);
+    printf("OLHOS: {eyeX: %f ; eyeY: %f ; eyeZ: %f}\n", eyeX, eyeY, eyeZ);
     glutPostRedisplay();
 }
 
 void doFrame() {
 	frameNumber++;
+
 	glutPostRedisplay();
 	glutTimerFunc(20, doFrame, 0);
 }
